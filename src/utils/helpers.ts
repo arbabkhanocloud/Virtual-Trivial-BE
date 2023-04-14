@@ -4,7 +4,7 @@ import { JWT_SECRET } from "../constants/app-constants";
 import logger, { FormatMessageByCode } from "./logger";
 import { Request, Response, NextFunction } from "express";
 import { getCurrentTime } from "./date-helpers";
-import { GameCode } from "../models/game-code";
+import { generateGameCodeModel } from "../models/generate-gameCode";
 
 export const setAuthenticatedSession = (
   uniqueCode: string,
@@ -46,7 +46,7 @@ export const checkLogin = async (
           ...updatedData,
           dateActivated: currentDate,
         };
-        const doc = await GameCode.findOneAndUpdate(
+        const doc = await generateGameCodeModel.findOneAndUpdate(
           { uniqueCode: req.params.uniqueCode },
           { dateActivated: "2023-04-14T02:33:49+05:00" },
           { new: true, lean: true }

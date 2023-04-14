@@ -1,9 +1,11 @@
 import cors from "cors";
-import GameCode from "./routes/game-code";
+// import GameCode from "./routes/game-code";
+import newGameCodes, { getAllGameCodes } from "./controllers/generate-gameCode";
 import userLogin from "./routes/user-login";
 import { HEALTHCHECK_OK } from "./constants/httpStatus";
 import { databseConnection } from "./config/database-connection";
 import express from "express";
+
 const app = express();
 import { errorHandler } from "./middleware/error";
 
@@ -23,7 +25,8 @@ app.use(express.json());
 app.get("/api/healthcheck", async (req, res) => {
   res.status(200).send(HEALTHCHECK_OK);
 });
-app.use("/api/gameCode", GameCode);
+// app.use("/api/gameCode", GameCode);
+app.use("/api/generate", newGameCodes);
 app.use("/api/login/:uniqueCode", userLogin);
 app.use(errorHandler);
 

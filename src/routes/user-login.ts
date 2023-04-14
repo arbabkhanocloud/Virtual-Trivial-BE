@@ -2,7 +2,7 @@ import { checkLogin } from "../utils/helpers";
 import logger, { FormatMessageByCode } from "../utils/logger";
 import { CODE_NOT_FOUND } from "../constants/httpStatus";
 import { getCurrentTime } from "../utils/date-helpers";
-import { GameCode } from "../models/game-code";
+import { generateGameCodeModel } from "../models/generate-gameCode";
 import { Request, Response, NextFunction } from "express";
 
 const userLogin = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ const userLogin = async (req: Request, res: Response) => {
 
   try {
     const uniqueCode = req.params.uniqueCode;
-    const gameCodeCollection = await GameCode.find({
+    const gameCodeCollection = await generateGameCodeModel.find({
       uniqueCode: uniqueCode,
     });
 
