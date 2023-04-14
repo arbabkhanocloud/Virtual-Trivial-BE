@@ -21,18 +21,10 @@ app.use(
 app.use(express.json());
 
 app.get("/api/healthcheck", async (req, res) => {
-  console.log(" healthCheck endpoint hitt");
   res.status(200).send(HEALTHCHECK_OK);
 });
 app.use("/api/gameCode", GameCode);
-app.use(
-  "/api/login/:uniqueCode",
-  userLogin
-  // async (req, res) => {
-  //   console.log("Unique End Point Hitt");
-  //   res.status(200).send("UserLogin EndPoint Hitt");
-  // }
-);
+app.use("/api/login/:uniqueCode", userLogin);
 app.use(errorHandler);
 
 const port = 5000;

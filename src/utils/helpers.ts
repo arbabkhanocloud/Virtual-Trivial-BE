@@ -19,8 +19,6 @@ export const setAuthenticatedSession = (
   });
   logger.info(FormatMessageByCode(uniqueCode, "Login - Token Retrieved"));
 
-  console.log("\n Token is:  ", token, "\n");
-
   const presentedEntries = {
     code: "API-200",
     token: token,
@@ -38,28 +36,21 @@ export const checkLogin = async (
 ): Promise<void> => {
   const uniqueCode = req.params.uniqueCode;
 
-  console.log("\n filter is:  ", filter, "\n");
-
   if (filter) {
     if (filter.dateActivated === "") {
       try {
         logger.info(FormatMessageByCode(uniqueCode, "Login - New Game Code"));
         let updatedData = filter;
         const currentDate = getCurrentTime();
-        console.log("\n current  date is:  ", currentDate, "\n");
-        console.log("\n updated data before is:  ", updatedData, "\n");
         updatedData = {
           ...updatedData,
           dateActivated: currentDate,
         };
-        console.log("\n updated data after is:  ", updatedData, "\n");
         const doc = await GameCode.findOneAndUpdate(
           { uniqueCode: req.params.uniqueCode },
           { dateActivated: "2023-04-14T02:33:49+05:00" },
           { new: true, lean: true }
         );
-        console.log("\nupdated doc is :  ", doc, "\n");
-
         setAuthenticatedSession(uniqueCode, res, filter.gameType);
         logger.info(FormatMessageByCode(uniqueCode, "Login - Data Updated"));
         return;
