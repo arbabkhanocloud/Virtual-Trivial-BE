@@ -42,13 +42,10 @@ export const checkLogin = async (
         logger.info(FormatMessageByCode(uniqueCode, "Login - New Game Code"));
         let updatedData = filter;
         const currentDate = getCurrentTime();
-        updatedData = {
-          ...updatedData,
-          dateActivated: currentDate,
-        };
-        const doc = await generateGameCodeModel.findOneAndUpdate(
+
+        await generateGameCodeModel.findOneAndUpdate(
           { uniqueCode: req.params.uniqueCode },
-          { dateActivated: "2023-04-14T02:33:49+05:00" },
+          { dateActivated: currentDate },
           { new: true, lean: true }
         );
         setAuthenticatedSession(uniqueCode, res, filter.gameType);

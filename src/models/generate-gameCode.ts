@@ -10,7 +10,6 @@ const generaGameCodeSchema = new mongoose.Schema<IGAMECODEDTO>({
   dateCreated: {
     type: String,
   },
-
   dateActivated: {
     type: String,
   },
